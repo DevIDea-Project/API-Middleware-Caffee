@@ -5,8 +5,10 @@ class ProductController {
 
     public async listProductInventory(request: Request, response: Response) {
         try {
-            const apiClover = await ApiExtern.ApiClover();
-            const apiCloverQuantity = await ApiExtern.ApiCloverQuantity();
+            const token = request.headers.authorization;
+            const accept = request.headers.accept;
+            const apiClover = await ApiExtern.ApiClover(token, accept);
+            const apiCloverQuantity = await ApiExtern.ApiCloverQuantity(token, accept);
 
             const result = {
                 id: apiClover.elements[0].id,
@@ -21,7 +23,6 @@ class ProductController {
                     modifiedTime: apiCloverQuantity.elements[0].modifiedTime,
                 }
             }
-
             return response.json(result);
         }
         catch(err){

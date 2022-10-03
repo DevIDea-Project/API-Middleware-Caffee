@@ -1,24 +1,20 @@
 const axios = require('axios').default
 
-const baseUrl1 = "...";
-const baseUrl2 = "...";
-const token = "...";
-
 class ApiExtern {
-    public async ApiClover() {
-        const api = await axios.get(baseUrl1, {
+    public async ApiClover(token: string, accept: string) {
+        const api = await axios.get(process.env.URL, {
             headers: {
-                'accept': 'application/json',
+                'accept': accept,
                 'authorization': `Bearer ${token}`,
             }
         })
         return api.data;
     }
     
-    public async ApiCloverQuantity() {
-        const api = await axios.get(baseUrl2,{
+    public async ApiCloverQuantity(token: string, accept: string) {
+        const api = await axios.get(process.env.URL_ITEM, {
             headers: {
-                'accept': 'application/json',
+                'accept': accept,
                 'authorization': `Bearer ${token}`,
             }
         })
@@ -26,4 +22,4 @@ class ApiExtern {
     }
 }
 
-export default new ApiExtern()
+export default new ApiExtern();
