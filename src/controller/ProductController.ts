@@ -7,23 +7,38 @@ class ProductController {
         try {
             const token = request.headers.authorization;
             const accept = request.headers.accept;
+            
             const apiClover = await ApiExtern.ApiClover(token, accept);
+            const fullApiClover = await apiClover.elements.map(el => el);
+            
             const apiCloverQuantity = await ApiExtern.ApiCloverQuantity(token, accept);
+            const fullApiCloverQuantity = await apiCloverQuantity.elements.map(el => el);
 
-            const result = {
-                id: apiClover.elements[0].id,
-                name: apiClover.elements[0].name,
-                price: apiClover.elements[0].price,
-                priceType: apiClover.elements[0].priceType,
-                stockCount: apiClover.elements[0].stockCount,
-                item: {
-                    id: apiCloverQuantity.elements[0].item.id,
-                    stockCounts: apiCloverQuantity.elements[0].stockCount,
-                    quantity: apiCloverQuantity.elements[0].quantity,
-                    modifiedTime: apiCloverQuantity.elements[0].modifiedTime,
+            const result1 = fullApiClover.map(el => {
+                return {
+                    id: el.id,
+                    name: el.name,
+                    price: el.price,
+                    priceType: el.priceType,
+                    stockCount: el.stockCount,
                 }
-            }
-            return response.json(result);
+            })
+
+            const result2 = fullApiCloverQuantity.map(el => {
+                return {
+                    id: el.item.id,
+                    stockCounts: el.stockCount,
+                    quantity: el.quantity,
+                    modifiedTime: el.modifiedTime,
+                }
+            })
+           
+            const result = []
+            result1.map((el,i) => {
+                result.push({clover: result1[i], quantity: result2[i]});
+            })
+
+            return response.json({result});
         }
         catch(err){
             return response.json({
