@@ -36,9 +36,8 @@ class BusinessRule {
             });
            
             const result = [];
-            const resultAll = [];
             result1.map((el: any, i: string | number) => {
-                result.push({resultAll: {items: result1[i], itemStock: result2[i]}});
+                result.push({result: {items: result1[i], itemStock: result2[i]}});
             })
 
             return response.json({...result});
