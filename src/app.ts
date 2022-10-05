@@ -1,12 +1,11 @@
 import * as express from 'express';
 import product from './routes/Product.routes';
 import * as bodyParser from "body-parser";
-
 import * as dotenv from "dotenv";
 
 export class App {
  
-  private express: express.Application
+  private express: express.Application;
 
   constructor() {
     this.express = express();
@@ -22,7 +21,7 @@ export class App {
   private middlewares(): void {
     this.express.use(bodyParser.json());
     dotenv.config();
-    this.express.use(express.urlencoded({ extended: true })) 
+    this.express.use(express.urlencoded({ extended: true }));
     this.express.use(express.json());
   }
 
