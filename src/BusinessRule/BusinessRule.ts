@@ -23,24 +23,14 @@ class BusinessRule {
                     stockCount: el.stockCount,
                 }
             });
-
-            const result2 = fullApiCloverQuantity.map(el => {
-                return {
-                    item: {
-                        id: el.item.id,
-                        stockCounts: el.stockCount,
-                        quantity: el.quantity,
-                        modifiedTime: el.modifiedTime,
-                    }
-                }
-            });
            
             const result = [];
+            const elements = [];
             result1.map((el: any, i: string | number) => {
-                result.push({result: {items: result1[i], itemStock: result2[i]}});
+                result.push({elements: {items: result1[i], itemStock: fullApiCloverQuantity[i]}});
             })
 
-            return response.json({...result});
+            return response.json({result});
         }
         catch(err){
             return response.json({
