@@ -22,7 +22,7 @@ class BusinessRule {
                     priceType: el.priceType,
                     stockCount: el.stockCount,
                 }
-            })
+            });
 
             const result2 = fullApiCloverQuantity.map(el => {
                 return {
@@ -33,11 +33,12 @@ class BusinessRule {
                         modifiedTime: el.modifiedTime,
                     }
                 }
-            })
+            });
            
             const result = [];
+            const resultAll = [];
             result1.map((el: any, i: string | number) => {
-                result.push({items: result1[i], itemStock: result2[i]});
+                result.push({resultAll: {items: result1[i], itemStock: result2[i]}});
             })
 
             return response.json({...result});
