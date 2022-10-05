@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import BusinessRule from "../services/BusinessRule";
+import BusinessRule from "../BusinessRule/BusinessRule";
 
 class ProductController {
     public async listProductInventory(request: Request, response: Response) {
