@@ -23,14 +23,24 @@ class BusinessRule {
                     stockCount: el.stockCount,
                 }
             });
-           
+
+            const result2 = fullApiCloverQuantity.map(el => {
+                return {
+                    id: el.item.id,
+                    stockCount: el.stockCount,
+                    price: el.price,
+                    quantity: el.quantity,
+                    modifiedTime: el.modifiedTime,
+                }
+            });
+
             const result = [];
             const elements = [];
             result1.map((el: any, i: string | number) => {
-                result.push({elements: {items: result1[i], itemStock: fullApiCloverQuantity[i]}});
+                result.push({elements: { itemsx: result1[i], itemStock: result2[i] }});
             })
 
-            return response.json({result});
+            return response.json({...result});
         }
         catch(err){
             return response.json({
@@ -38,7 +48,6 @@ class BusinessRule {
             });
         }
     }
-
 }
 
 export default new BusinessRule();
